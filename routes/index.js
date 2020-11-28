@@ -14,3 +14,10 @@ router.get('/', function(req, res, next) {
     res.render('index',{title:'Employee Records', records:data});
   });
 });
+
+router.get('/signup',function(err,res,next){
+  res.render('signup',{msg=''});
+})
+router.get('/login',function(err,res,next){
+  res.render('login',{msg=''});
+})
