@@ -49,7 +49,7 @@ function checkLoginUser(req,res,next){
   try {
     var decoded = jwt.verify(userToken, 'loginToken');
   } catch(err) {
-    res.redirect('/login');
+    res.redirect('/home');
   }
   next();
 }
