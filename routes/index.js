@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signup',function(err,res,next){
-  res.render('signup',{msg=''});
+  res.render('signup',{msg:''});
 })
 router.get('/login',function(err,res,next){
-  res.render('login',{msg=''});
+  res.render('login',{msg:''});
 })
