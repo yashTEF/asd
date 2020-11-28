@@ -21,6 +21,15 @@ body {
 display: inline-flexbox;
 }
 
+.pakhare{
+  background-image:url(../assets/images/Affordable-Websites-for-Small-Businesses-Contact-Us-Background-1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  text-align: center;
+display: inline-flexbox;
+}
+
 .a{
   font-weight: bolder;
 
@@ -44,6 +53,17 @@ display: inline-flexbox;
 
 }
 
+.glow{
+  font-size: 40px;
+  text-align: center;
+  color: rgb(25, 70, 168);
+  text-align: center;
+  -webkit-animation: glowing 1s ease-in-out infinite alternate;
+  -moz-animation: glowing 1s ease-in-out infinite alternate;
+  animation: glowing 1s ease-in-out infinite alternate;
+ 
+
+}
 
 .glowing {
   font-size: 30px;
@@ -63,4 +83,32 @@ display: inline-flexbox;
   to {
   text-shadow: 0 0 20px #fff, 0 0 30px #2b4ebe, 0 0 40px #4276e6, 0 0 50px #4644cf, 0 0 60px #3533d1, 0 0 70px #493cbb, 0 0 80px #8beeff;
 }
+}
+
+.sh{
+
+  margin-top: 5%;
+  /*box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);*/
+}
+
+.navbar {
+  overflow: hidden;
+  
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+
+.r{
+  font-weight: bolder;
+
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: antiquewhite;
+ text-align: center;
+ text-shadow: black 50px;
+ font-style: oblique ;
+ text-decoration: none;
+  text-shadow: 0 0 10
+  px blanchedalmond ;
 }

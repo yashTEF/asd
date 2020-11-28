@@ -11,11 +11,38 @@ var jwt = require('jsonwebtoken');
 
 var asd=asdMode.find({});
 
+
+
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
 }
 
+function checkempty(req,res,next){
+  var username=req.body.uname;
+  var email=req.body.email;
+  var password=req.body.password;
+  var con=req.body.conformpass;
+
+  if(username==null || email==null || password==null || con==null)
+  res.render('signup',{msg:'All Values Are Required'});
+
+  next();
+}
+
+function checkUsername(req,res,next){
+  var uname=req.body.uname;
+  var checkexitemail=asdMode.findOne({username:uname});
+  checkexitemail.exec((err,data)=>{
+ if(err) throw err;
+ if(data){
+  
+return res.render('signup', { title: 'Password Management System', msg:'Username Already Exit' });
+
+ }
+ next();
+  });
+}
 
 function checkLoginUser(req,res,next){
   var userToken=localStorage.getItem('userToken');
@@ -27,24 +54,39 @@ function checkLoginUser(req,res,next){
   next();
 }
 
+function checkEmail(req,res,next){
+  var email=req.body.email;
+  var checkexitemail=asdMode.findOne({email:email});
+  checkexitemail.exec((err,data)=>{
+ if(err) throw err;
+ if(data){
+  
+return res.render('signup', { title: 'Password Management System', msg:'Email Already Exit' });
+
+ }
+ next();
+  });
+}
+
 router.get('/home',function(req,res,next){
   
-
-  res.render('home');
+  var a=localStorage.getItem('loginUser');
+  res.render('home',{loginuser:a});
 });
 
 module.exports = router;
 var employee=empMode.find({});
 
-router.get('/', function(req, res, next) {
+router.get('/' ,checkLoginUser,function(req, res, next) {
+  var a=localStorage.getItem('loginUser');
   employee.exec(function(err,data){
     if(err) throw err;
-    res.render('index',{title:'Employee Records', records:data});
+    res.render('index',{title:'Employee Records', records:data,loginuser:a});
   });
 });
 
-router.post('/',function(req, res, next) {
-
+router.post('/',checkLoginUser,function(req, res, next) {
+  var a=localStorage.getItem('loginUser');
   var empdetails=new empMode({
     name:req.body.name,
     email:req.body.mail,
@@ -60,7 +102,7 @@ router.post('/',function(req, res, next) {
 
     employee.exec(function(err,data){
       if(err) throw err;
-      res.render('index',{title:'Employee Records', records:data});
+      res.render('index',{title:'Employee Records', records:data,loginuser:a});
     });
 
   });
@@ -69,8 +111,8 @@ router.post('/',function(req, res, next) {
 
 
 
-router.post('/signup', function(req, res, next) {
-
+router.post('/signup',checkempty,checkEmail, checkUsername ,function(req, res, next) {
+  var a=localStorage.getItem('loginUser');
   var empdetails=new asdMode({
     username:req.body.name,
     email:req.body.email,
@@ -85,7 +127,7 @@ router.post('/signup', function(req, res, next) {
 
     asd.exec(function(err,data){
       if(err) throw err;
-      res.render('signup',{title:'Employee Records', msg:'data is entered'});
+      res.render('login',{title:'Employee Records', msg:'Your are Signedup Now You Can Log in',loginuser:a});
 
     });
 
@@ -95,22 +137,24 @@ router.post('/signup', function(req, res, next) {
 
 
 router.get('/signup',function(err,res,next){
-  res.render('signup',{msg:''});
+  var a=localStorage.getItem('loginUser');
+  res.render('signup',{msg:'',loginuser:a});
 })
 
 router.get('/login',function(err,res,next){
-  res.render('login',{msg:''});
+  var a=localStorage.getItem('loginUser');
+  res.render('login',{msg:'please log in first',loginuser:a});
 })
 
 router.post('/login',function(req,res,next){
-  
+  var a=localStorage.getItem('loginUser');
   var password=req.body.password;
   var username=req.body.uname;
   
   var checkUser=asdMode.findOne({username:username});
   checkUser.exec((err, data)=>{
    if(data==null){
-    res.render('login', { title: 'Password Management System', msg:"Invalid Username and Password." });
+    res.render('login', { title: 'Password Management System', msg:"Invalid Username and Password.",loginuser:a});
 
    }
    
@@ -129,7 +173,7 @@ if(getPassword==password){
 }
 
 else{
-  res.render('index', { title: 'Password Management System', msg:"Invalid Username and Password." });
+  res.render('index', { title: 'Password Management System', msg:"Invalid Username and Password.",loginuser:a });
 
 }
    }
@@ -152,7 +196,12 @@ router.get('/logout',function(err,res,next){
   localStorage.removeItem('userToken');
   localStorage.removeItem('loginUser');
 
-  res.redirect('/');
+  res.redirect('/home');
+})
+
+router.get('/font',checkLoginUser,function(err,res,next){
+  var a=localStorage.getItem('loginUser');
+  res.render('font',{loginuser:a});
 })
 
 

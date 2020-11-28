@@ -1,111 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
- 
-</head>
-<body>
 
-  <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark primary-color bg-dark">
-    <!-- Navbar brand -->
-    <a class="navbar-brand" href="#">Navbar</a>
-    <!-- Collapse button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="basicExampleNav">
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <!-- Dropdown -->
-        <li class="nav-item dropdown multi-level-dropdown">
-          <a href="#" id="menu" data-toggle="dropdown" class="nav-link dropdown-toggle w-100">Dropdown</a>
-          <ul class="dropdown-menu mt-2 rounded-0 primary-color border-0 z-depth-1">
-            <li class="dropdown-item dropdown-submenu p-0">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle text-white w-100">Click Me Too! </a>
-              <ul class="dropdown-menu ml-2 rounded-0 primary-color border-0 z-depth-1">
-                <li class="dropdown-item p-0">
-                  <a href="#" class="text-white w-100">Hey</a>
-                </li>
-                <li class="dropdown-item p-0">
-                  <a href="#" class="text-white w-100">Hi</a>
-                </li>
-                <li class="dropdown-item dropdown-submenu p-0">
-                  <a href="#" data-toggle="dropdown" class="dropdown-toggle text-white w-100">Hello </a>
-                  <ul class="dropdown-menu mr-2 rounded-0 primary-color border-0 z-depth-1 r-100 ">
-                    <li class="dropdown-item p-0">
-                      <a href="#" class="text-white w-100">Some</a>
-                    </li>
-                    <li class="dropdown-item p-0">
-                      <a href="#" class="text-white w-100">Text</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-item dropdown-submenu">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle text-white w-100">Click me </a>
-              <ul class="dropdown-menu mr-2 rounded-0  primary-color border-0 z-depth-1 r-100 ">
-                <li class="dropdown-item p-0">
-                  <a href="#" class="text-white w-100">How</a>
-                </li>
-                <li class="dropdown-item p-0">
-                  <a href="#" class="text-white w-100">are</a>
-                </li>
-                <li class="dropdown-item p-0">
-                  <a href="#" class="text-white w-100">you </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <!-- Links -->
-      <form class="form-inline">
-        <div class="md-form my-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        </div>
-      </form>
-    </div>
-    <!-- Collapsible content -->
-  </nav>
-  <!--/.Navbar-->  
-
+<%- include('header')%>
 
 <div class=" shashank">
-    <h1 class="b">Get Tired of Consuming knowled by book </h1>
+    <div style="text-align: center;">
+      <h1 class="b">Get Tired of Consuming knowled by book </h1>
     <br>
-    <h2 class="a">want to learn more in less time</h2>
-    <h3 class="a">then you are just one click away to dive in the ocean of knowled</h3>
+    <h2 class="a glowing">want to learn more in less time</h2>
+    <h3 class="a glowing">then you are just one click away to dive in the ocean of knowled</h3>
+    <br><br>
+    <h1><a href="#explore" class="glow" >EXPLORE MORE</a></h1>
+    </div>
 
-    <h1><a href="#explore" class="glowing" >EXPLORE MORE</a></h1>
+    <div style="margin-top:10%;">
+      <button type="button" class="btn btn-warning "><a href="/login" style="text-decoration: none; color: azure;">LOGIN</a></button>
+      <button type="button" class="btn btn-warning "><a href="/signup" style="text-decoration: none; color: azure;">SIGNup</a></button>
+      
+    </div>
+   
     
 </div>
 
-<br>
-<br><br><br><br><br>
+  <div class="container" id="explore">
+    <div class="row sh">
+      <div class="col-sm-6  ">
+        <img src="/assets/images/image1.jfif" alt="">
+      </div>
+      <div class="col-sm-6  ">
+        <h1>thousand of courses to access</h1>
+        <p>A massive open online course is an online course aimed at unlimited participation and open access via the web. In addition to traditional course materials, such as filmed lectures, readings, and problem sets, many MOOCs provide interactive courses with user forums or social media discussions to support community interactions among students, professors, and teaching assistants (TAs), as well as immediate feedback to quick quizzes and assignments. MOOCs are a widely researched development in distance education, first introduced in 2008,that emerged as a popular mode of learning in 2012.</p>
+     
+     
+     
+      </div>
+  
+       
+    </div>
+  
+    <div class="row sh">
+     
+      <div class="col-sm-6  ">
+        <h1>thousand of courses to access</h1>
+        <p>A massive open online course is an online course aimed at unlimited participation and open access via the web. In addition to traditional course materials, such as filmed lectures, readings, and problem sets, many MOOCs provide interactive courses with user forums or social media discussions to support community interactions among students, professors, and teaching assistants (TAs), as well as immediate feedback to quick quizzes and assignments. MOOCs are a widely researched development in distance education, first introduced in 2008,that emerged as a popular mode of learning in 2012.</p>
+     
+     
+     
+      </div>
+  
+      <div class="col-sm-6  ">
+        <img src="/assets/images/image2.jpg" alt="" style="margin-left: 5%;">
+      </div>
+       
+    </div>
 
-<h1 id="explore">sandlaksdn</h1>
+    <div class="row sh" >
+     
+      <div class="col-sm-6  ">
+        <img src="/assets/images/8-examples-of-video-based-learning-for-corporate-training.jpeg" alt="" style="height: 60%;">
+      </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
- 
-</body>
-</html>
+      <div class="col-sm-6 ">
+        <h1>thousand of courses to access</h1>
+        <p>A massive open online course is an online course aimed at unlimited participation and open access via the web. In addition to traditional course materials, such as filmed lectures, readings, and problem sets, many MOOCs provide interactive courses with user forums or social media discussions to support community interactions among students, professors, and teaching assistants (TAs), as well as immediate feedback to quick quizzes and assignments. MOOCs are a widely researched development in distance education, first introduced in 2008,that emerged as a popular mode of learning in 2012.</p>
+     
+     
+     
+      </div>
+  
+      
+       
+    </div>
+
+    <div class="row ">
+     
+      <div class="col-sm-6 ">
+        <h1>thousand of courses to access</h1>
+        <p>A massive open online course is an online course aimed at unlimited participation and open access via the web. In addition to traditional course materials, such as filmed lectures, readings, and problem sets, many MOOCs provide interactive courses with user forums or social media discussions to support community interactions among students, professors, and teaching assistants (TAs), as well as immediate feedback to quick quizzes and assignments. MOOCs are a widely researched development in distance education, first introduced in 2008,that emerged as a popular mode of learning in 2012.</p>
+     
+     
+     
+      </div>
+  
+      <div class="col-sm-6  ">
+        <img src="/assets/images/image2.jpg" alt="" style="margin-left: 5%;">
+      </div>
+       
+    </div>
+
+    <div class="row sh">
+     
+      <div class="col-sm-6 ">
+        <img src="/assets/images/image3.jpg" alt="" style="height: 50%;">
+      </div>
+
+      <div class="col-sm-6  ">
+        <h1>thousand of courses to access</h1>
+        <p>A massive open online course is an online course aimed at unlimited participation and open access via the web. In addition to traditional course materials, such as filmed lectures, readings, and problem sets, many MOOCs provide interactive courses with user forums or social media discussions to support community interactions among students, professors, and teaching assistants (TAs), as well as immediate feedback to quick quizzes and assignments. MOOCs are a widely researched development in distance education, first introduced in 2008,that emerged as a popular mode of learning in 2012.</p>
+     
+      </div>
+      
+      
+
+    
+       
+    </div>
+
+    
+  
+  </div>
+
+
+  <%- include('footer')%>
