@@ -107,44 +107,34 @@ router.post('/login',function(req,res,next){
   var password=req.body.password;
   var username=req.body.uname;
   
-  var check=asdMode.findOne({username:username});
+  var checkUser=asdMode.findOne({username:username});
+  checkUser.exec((err, data)=>{
+   if(data==null){
+    res.render('login', { title: 'Password Management System', msg:"Invalid Username and Password." });
 
-  if(username=='' || password=='')
-  res.render('login',{msg:'empty user name or password reenter it'});
+   }
+   
+   else{
+if(err) throw err;
 
-  
+var getUserID=data._id;
+var getPassword=data.password;
 
+if(getPassword==password){
+  var token = jwt.sign({ userID: getUserID }, 'loginToken');
+  localStorage.setItem('userToken', token);
+  localStorage.setItem('loginUser', username);
 
-  else if(check.username!=null){
-  check=asdMode.findOne({username:username});
-  if(check)
-  check.exec(function(err,data){
-    if(err)
-    throw err;
-
-    var a=data.password;
-    var getuserid=data._id;
-    if(a==password)
-    { var token=jwt.sign({userId:getuserid},'loginToken');
-    localStorage.setItem('userToken',token);
-    localStorage.setItem('loginUser',username);
-
-      employee.exec(function(err,data){
-        if(err) throw err;
-        var ab=localStorage.getItem('loginUser')
-        res.redirect('/dasboard');
-      })
-    }
-
-    else
-    res.redirect('login');
-  })
+  res.redirect('/dasboard');
 }
 
-else
- res.redirect('login');
-  
-  
+else{
+  res.render('index', { title: 'Password Management System', msg:"Invalid Username and Password." });
+
+}
+   }
+  });
+ 
 
 });
 
