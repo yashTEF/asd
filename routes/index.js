@@ -27,6 +27,12 @@ function checkLoginUser(req,res,next){
   next();
 }
 
+router.get('/home',function(req,res,next){
+  
+
+  res.render('home');
+});
+
 module.exports = router;
 var employee=empMode.find({});
 
@@ -61,9 +67,7 @@ router.post('/',function(req, res, next) {
   
 });
 
-router.get('/login',function(err,res,next){
-  res.render('login');
-})
+
 
 router.post('/signup', function(req, res, next) {
 
@@ -82,6 +86,7 @@ router.post('/signup', function(req, res, next) {
     asd.exec(function(err,data){
       if(err) throw err;
       res.render('signup',{title:'Employee Records', msg:'data is entered'});
+
     });
 
   });
@@ -101,7 +106,18 @@ router.post('/login',function(req,res,next){
   
   var password=req.body.password;
   var username=req.body.uname;
+  
   var check=asdMode.findOne({username:username});
+
+  if(username=='' || password=='')
+  res.render('login',{msg:'empty user name or password reenter it'});
+
+  
+
+
+  else if(check.username!=null){
+  check=asdMode.findOne({username:username});
+  if(check)
   check.exec(function(err,data){
     if(err)
     throw err;
@@ -121,8 +137,14 @@ router.post('/login',function(req,res,next){
     }
 
     else
-    res.render('login');
+    res.redirect('login');
   })
+}
+
+else
+ res.redirect('login');
+  
+  
 
 });
 
@@ -142,3 +164,5 @@ router.get('/logout',function(err,res,next){
 
   res.redirect('/');
 })
+
+

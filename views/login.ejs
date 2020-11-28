@@ -19,7 +19,9 @@
             <img src="/assets/images/logo.svg" alt="logo" class="logo">
           </div>
           <div class="login-wrapper my-auto">
-              <h1 class="login-title" >ASD ASSIGNMENT</h1>
+            <%if(msg !=''){%>
+              <%=msg%>
+              <%}%>
             <h1 class="login-title">Log in</h1>
             <form action="/login" method="post">
               <div class="form-group">
@@ -37,7 +39,7 @@
           </div>
         </div>
         <div class="col-sm-6 px-0 d-none d-sm-block">
-          <img src="/assets/images/8-examples-of-video-based-learning-for-corporate-training.jpeg" alt="login image" class="login-img">
+          <img src="/assets/images/one.jpg" alt="login image" class="login-img">
         </div>
       </div>
     </div>
