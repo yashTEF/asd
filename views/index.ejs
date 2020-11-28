@@ -21,6 +21,18 @@
         </tr>
       </thead>
       
+     <% records.forEach(function(row){%>
+      
+      <tr>
+        <td><%= row.name%></td>
+        <td><%= row.email%></td>
+        <td><%= row.etype%></td>
+        <td><%= row.hourlyrate%></td>
+        <td><%= row.totalhour%></td>
+      </tr>
+      
+     <%})%>
+      
     </table>
     
     <div class='container'>
