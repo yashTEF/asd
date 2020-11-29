@@ -113,6 +113,8 @@ router.post('/',checkLoginUser,function(req, res, next) {
 
 router.post('/signup',checkempty,checkEmail, checkUsername ,function(req, res, next) {
   var a=localStorage.getItem('loginUser');
+
+
   var empdetails=new asdMode({
     username:req.body.name,
     email:req.body.email,
@@ -127,7 +129,8 @@ router.post('/signup',checkempty,checkEmail, checkUsername ,function(req, res, n
 
     asd.exec(function(err,data){
       if(err) throw err;
-      res.render('login',{title:'Employee Records', msg:'Your are Signedup Now You Can Log in',loginuser:a});
+     
+      res.redirect('login');
 
     });
 
