@@ -87,7 +87,7 @@ display: inline-flexbox;
 }
 
 .sh{
-
+overflow: hidden;
   margin-top: 5%;
   box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
 }
@@ -131,4 +131,9 @@ display: inline-flexbox;
 .c:hover{
   text-decoration: none;
   color: bisque;
+}
+
+.asd{
+  height: 50vh;
+  width: 70vh;
 }
