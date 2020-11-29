@@ -110,6 +110,7 @@ router.post('/index',checkLoginUser,function(req, res, next) {
 
     employee.exec(function(err,data){
       if(err) throw err;
+      
       res.render('index',{title:'Employee Records', records:data,loginuser:a});
     });
 
