@@ -70,7 +70,7 @@ return res.render('signup', { title: 'Password Management System', msg:'Email Al
   });
 }
 
-router.get('/home',function(req,res,next){
+router.get('/',function(req,res,next){
   
   var a=localStorage.getItem('loginUser');
 
@@ -85,7 +85,7 @@ router.get('/home',function(req,res,next){
 module.exports = router;
 var employee=empMode.find({});
 
-router.get('/' ,checkLoginUser,function(req, res, next) {
+router.get('/index' ,checkLoginUser,function(req, res, next) {
   var a=localStorage.getItem('loginUser');
   employee.exec(function(err,data){
     if(err) throw err;
@@ -93,7 +93,7 @@ router.get('/' ,checkLoginUser,function(req, res, next) {
   });
 });
 
-router.post('/',checkLoginUser,function(req, res, next) {
+router.post('/index',checkLoginUser,function(req, res, next) {
   var a=localStorage.getItem('loginUser');
   var empdetails=new empMode({
     name:req.body.name,
