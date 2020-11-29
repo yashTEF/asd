@@ -24,9 +24,10 @@ function checkempty(req,res,next){
   var password=req.body.password;
   var con=req.body.conformpass;
 
-  if(username==null || email==null || password==null || con==null)
+  if(username=='' || email==''|| password=='' || con=='' )
   res.render('signup',{msg:'All Values Are Required'});
 
+  else
   next();
 }
 
@@ -119,9 +120,7 @@ router.post('/',checkLoginUser,function(req, res, next) {
 
 
 router.post('/signup',checkempty,checkEmail, checkUsername ,function(req, res, next) {
-  var a=localStorage.getItem('loginUser');
-
-
+ 
   var empdetails=new asdMode({
     username:req.body.name,
     email:req.body.email,
@@ -130,19 +129,29 @@ router.post('/signup',checkempty,checkEmail, checkUsername ,function(req, res, n
 
   });
 
+  var password=req.body.password;
+  var con=req.body.conformpass;
 
+if(password==con)
+{
   empdetails.save(function(err,res1){
     if(err) throw err;
 
     asd.exec(function(err,data){
       if(err) throw err;
-     
-      res.redirect('login');
+     res.redirect('login');
 
     });
 
   });
   
+}
+
+else
+res.render('signup',{msg:'password not matched'});
+
+
+ 
 });
 
 
@@ -152,6 +161,7 @@ router.get('/signup',function(err,res,next){
 })
 
 router.get('/login',function(err,res,next){
+
   var a=localStorage.getItem('loginUser');
   res.render('login',{msg:'please log in first',loginuser:a});
 })
