@@ -217,7 +217,7 @@ router.get('/logout',function(err,res,next){
   localStorage.removeItem('userToken');
   localStorage.removeItem('loginUser');
 
-  res.redirect('/home');
+  res.redirect('/');
 })
 
 router.get('/font',checkLoginUser,function(err,res,next){
