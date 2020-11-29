@@ -11,7 +11,7 @@ var jwt = require('jsonwebtoken');
 
 var asd=asdMode.find({});
 
-
+var r=2;
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -49,7 +49,8 @@ function checkLoginUser(req,res,next){
   try {
     var decoded = jwt.verify(userToken, 'loginToken');
   } catch(err) {
-    res.redirect('/home');
+    r=0;
+    res.redirect('/login');
   }
   next();
 }
@@ -71,7 +72,13 @@ return res.render('signup', { title: 'Password Management System', msg:'Email Al
 router.get('/home',function(req,res,next){
   
   var a=localStorage.getItem('loginUser');
-  res.render('home',{loginuser:a});
+
+  if(r==2)
+  res.render('home',{loginuser:a,msg:''});
+
+  else
+  res.render('home',{loginuser:a,msg:'Please Login First '});
+
 });
 
 module.exports = router;
@@ -168,6 +175,7 @@ var getUserID=data._id;
 var getPassword=data.password;
 
 if(getPassword==password){
+  r=2;
   var token = jwt.sign({ userID: getUserID }, 'loginToken');
   localStorage.setItem('userToken', token);
   localStorage.setItem('loginUser', username);
