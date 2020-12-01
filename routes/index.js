@@ -227,3 +227,6 @@ router.get('/font',checkLoginUser,function(err,res,next){
 })
 
 
+router.get('/learn',function(err,res,next){
+  res.render('learn');
+})
