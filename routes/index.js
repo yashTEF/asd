@@ -228,7 +228,7 @@ router.get('/font',checkLoginUser,function(err,res,next){
 
 
 router.get('/learn',function(err,res,next){
-  res.render('learn');
+  res.render('by');
 })
 //client id
 //80181116872-qnom0akloqd0muvo1n46vtm5gb9st820.apps.googleusercontent.com
