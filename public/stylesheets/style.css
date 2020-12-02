@@ -178,3 +178,19 @@ html{
 
   background-color: EEB7F1;
 }
+
+
+
+.v1{
+  height: 30vh;
+  border-radius: 100%;
+margin: 3%;
+}
+
+.v1:hover{
+  
+  border-radius: 0%;
+  text-align: center;
+
+}
+
