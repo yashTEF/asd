@@ -1,11 +1,109 @@
-<%- include('header')%>
+<%-include('header')%>
 
-<div class=" pakhare" style="color;">
+  <div class="container">
+    <div class="row">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Employee Details Form</div>
+                     </div>  
+                <div class="panel-body" >
+                    <form action="/dasboard" id="EmployeeForm" class="form-horizontal" method="post"  role="form" enctype="multipart/form-data">
+                        
+                        <div id="signupalert" style="display:none" class="alert alert-danger">
+                            <p>Error:</p>
+                            <span></span>
+                        </div>
+                            
+                        <div class="form-group">
+                          <label for="icode" class="col-md-3 control-label"> Title</label>
+                          <div class="col-md-9">
+                              <input type="text" class="form-control" name="title" placeholder="Enter Title Of post">
+                          </div>
+                      </div>
+                        <div class="form-group">
+                          <label for="description" class="col-md-3 control-label"> Description</label>
+                          <div class="col-md-9">
+                              <input type="text" id="description" class="form-control" name="description" placeholder="Enter Title Description">
+                          </div>
+                      </div>
+                        <div class="form-group">
+                          <label for="artical" class="col-md-3 control-label"> Artical </label>
+                          <div class="col-md-9">
+                              <textarea id="artical" type="text" class="form-control" name="artical" placeholder="Enter Artical" id="artical" cols="30" rows="10"></textarea>
+                          </div>
+                      </div>
+
+                        <div class="form-group">
+                          <label for="au" class="col-md-3 control-label"> Username</label>
+                          <div class="col-md-9">
+                              <input id="au" type="text" class="form-control" name="username" placeholder="username"  cols="30" rows="10"s>
+                          </div>
+                      </div>
+                        
+                            
+                       
+
+                        <div class="form-group">
+                            <label for="icode" class="col-md-3 control-label"> Profile Image</label>
+                            <div class="col-md-9">
+                                <input type="file" class="form-control" name="file" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- Button -->                                        
+                            <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" name="submit" value="submit" class="btn btn-primary">   
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                    </form>
+                 </div>
+            </div>
+
+      <script>
+      $(function(){
+    $('#searchName').autocomplete({
+    source: function(req,res){
+
+      $.ajax({
+        url:"autocomplete/",
+        dataType:"jsonp",
+        type:"GET",
+        data:req,
+        success: function(data){
+          res(data)
+
+        },
+        error: function(err){
+          console.log(err.status);
+        }
+      });
+    },
+
+    minLength:1,
+    select: function(event,ui){
+      if(ui.item){
+        $('#searchName').val(ui.item.label);
+      }
+    }
 
 
-    <h1 class="r">the world is in your hand now </h1>
-    <h1 class="r">learn what ever you want </h1>
-    
-</div>
 
-<%- include('footer')%>
+    });
+
+      });
+      </script> 
+       
+        
+ </div> 
+    </div>
+  </div>
+ 
+
+  <%-include('footer')%> 

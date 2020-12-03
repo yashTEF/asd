@@ -82,15 +82,14 @@ display: inline-flexbox;
 }
 @-webkit-keyframes glowing{
   from {
-     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4f00b6, 0 0 40px #17057c, 0 0 50px #29c2ff, 0 0 60px #96fbff, 0 0 70px #1f0352;
-  }
-  to {
-  text-shadow: 0 0 20px #fff, 0 0 30px #2b4ebe, 0 0 40px #4276e6, 0 0 50px #4644cf, 0 0 60px #3533d1, 0 0 70px #493cbb, 0 0 80px #8beeff;
-}
+    
+
+       }
+
 }
 
 .sh{
-overflow: hidden;
+
   margin-top: 5%;
   box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
 }
@@ -198,3 +197,28 @@ margin: 3%;
   background-color:#fed8b1;
 }
 
+
+.upper_part{
+  background-image: url(../images/back.png);
+
+  
+  height: 60vh;
+  width: 100%;
+  
+}
+
+.post_back{
+  background-image: url(../assets/images/woman-books-reading.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  text-align: center;
+  display: inline-flexbox;
+  color: color;
+  overflow: visible ;
+  
+}
+
+.gll{
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4f00b6, 0 0 40px #17057c, 0 0 50px #29c2ff, 0 0 60px #96fbff, 0 0 70px #1f0352;
+}

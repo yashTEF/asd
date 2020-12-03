@@ -1,22 +1,44 @@
 var express = require('express');
 var router = express.Router();
 var empMode= require('../modules/employee');
-
+var multer = require('multer');
 var asdMode= require('../modules/asd');
 
+var bloggerMode= require('../modules/blogger');
 var jwt = require('jsonwebtoken');
+var path = require('path');
+const { websecurityscanner } = require('googleapis/build/src/apis/websecurityscanner');
+var employee=empMode.find({});
 
-
+var blogger=bloggerMode.find({});
 /* GET home page. */
 
 var asd=asdMode.find({});
 
 var r=2;
 
+//###########3IMAGE
+router.use(express.static(__dirname+"./public/"));
+
+var Storage= multer.diskStorage({
+  destination:"./public/uploads/",
+  filename:(req,file,cb)=>{
+    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+  }
+});
+
+var upload = multer({
+  storage:Storage
+}).single('file');
+
+
+//##########image
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
 }
+
+
 
 function checkempty(req,res,next){
   var username=req.body.uname;
@@ -82,8 +104,8 @@ router.get('/',function(req,res,next){
 
 });
 
-module.exports = router;
-var employee=empMode.find({});
+
+
 
 router.get('/index' ,checkLoginUser,function(req, res, next) {
   var a=localStorage.getItem('loginUser');
@@ -101,6 +123,7 @@ router.post('/index',checkLoginUser,function(req, res, next) {
     etype:req.body.etype,
     hourlyrate:req.body.hrate,
     totalhour:req.body.totalhour,
+    Image:req.body.file,
 
   });
 
@@ -191,11 +214,11 @@ if(getPassword==password){
   localStorage.setItem('userToken', token);
   localStorage.setItem('loginUser', username);
 
-  res.redirect('/dasboard');
+  res.redirect('/');
 }
 
 else{
-  res.render('index', { title: 'Password Management System', msg:"Invalid Username and Password.",loginuser:a });
+  res.render('login', { title: 'Password Management System', msg:"Invalid Username and Password.",loginuser:a });
 
 }
    }
@@ -204,13 +227,34 @@ else{
 
 });
 
-router.get('/dasboard',checkLoginUser,function(req,res,next){
+router.get('/dasboard',checkLoginUser,function(req, res, next) {
+  blogger.exec(function(err,data){
+if(err) throw err;
+res.render('dasboard', { title: 'Employee Records', records:data, success:'' });
+  });
+  
+});
 
-  //localStorage.setItem('loginUser',username);
-  var a=localStorage.getItem('loginUser');
 
-  res.render('dasboard',{loginuser:a});
+router.post('/dasboard', upload, function(req, res, next) {
+  var bloggerDetails = new bloggerMode({
+    title:req.body.title,
+    username:req.body.username,
+    description:req.body.description,
+    artical:req.body.artical,
+    image:req.file.filename,
+    
+  });
 
+  bloggerDetails.save(function(err,req1){
+    if(err) throw err;
+    blogger.exec(function(err,data){
+      if(err) throw err;
+      res.render('dasboard', { title: 'Employee Records', records:data, success:'Record Inserted Successfully' });
+        });
+  })
+  
+  
 });
 
 
@@ -228,7 +272,28 @@ router.get('/font',checkLoginUser,function(err,res,next){
 
 
 router.get('/learn',function(err,res,next){
-  res.render('by');
+  res.render('learn');
 })
+
+router.get('/blogger',function(err,res){
+
+  blogger.exec(function(err,data){
+    if(err) throw err;
+    res.render('blogger_dashboard', { title: 'Employee Records', records:data, success:'' });
+      });
+      
+})
+
+router.get('/blog_post/:id', function(req, res, next) {
+  var username=req.params.id;
+var edit= bloggerMode.findOne({username:username});
+edit.exec(function(err,data){
+if(err) throw err;
+res.render('blog_post', { title: 'Edit Employee Record', records:data });
+  });
+  
+});
+
 //client id
 //80181116872-qnom0akloqd0muvo1n46vtm5gb9st820.apps.googleusercontent.com
+module.exports = router;

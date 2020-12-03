@@ -1,0 +1,43 @@
+<%- include('header')%>
+<div class=" post_back" style="color: black;" >
+
+    
+
+    <div style="text-align: center;">
+        <% if(records.image){ %>
+            <img  src="/uploads/<%= records.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;">
+          <% } %>
+      <h1 class="b" style="color: orange;"><%=records.title%></h1>
+    <br>
+    <div class="container">
+        <h2 class="a glll" style="color: rgb(20, 20, 19); font:bolder; font-size: 20px;text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4f00b6, 0 0 40px #17057c, 0 0 50px #29c2ff, 0 0 60px #96fbff, 0 0 70px #1f0352;"><%=records.description%></h2>
+    <h3 class="a " style="color: white;">Gain the Knowledge You Want</h3>
+    </div>
+    <br><br>  
+  
+ 
+
+</div>
+
+
+<div class="row">
+    <div class="col-lg-2 col-md-0 col-sm-0"></div>
+    <div class="col-lg-7 col-md-8 col-sm-12">
+        
+        <h1 class="b">
+            <%=records.title%>
+        </h1>
+        <p style="font-size:20px; text-align:left; ">
+          <%=records.artical%>
+        </p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-0"></div>
+    
+    
+</div>
+
+
+
+
+<%- include('footer')%>
+

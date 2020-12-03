@@ -11,7 +11,8 @@ var employeeSchema=new mongoose.Schema({
     email: String,
     etype:String,
     hourlyrate: Number,
-    totalhour:Number
+    totalhour:Number,
+    Image:String,
 });
 
 var employeeModel=mongoose.model('Employee',employeeSchema);

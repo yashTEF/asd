@@ -8,7 +8,7 @@
           </div>
           <div class="login-wrapper my-auto">
             <%if(msg !=''){%>
-              <%=msg%>
+             <div style="color: red;font-weight: bolder; "> <h4><%=msg%></h4></div>
               <%}%>
             <h1 class="login-title">Log in</h1>
             <form action="/login" method="post">
