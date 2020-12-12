@@ -1,0 +1,145 @@
+<!<%- include('header')%>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+    body{
+    background: -webkit-linear-gradient(left, orange, rgb(228, 224, 18));
+}
+
+
+
+.contact-form{
+    background: #fff;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 70%;
+}
+.contact-form .form-control{
+    border-radius:1rem;
+}
+.contact-image{
+    text-align: center;
+}
+.contact-image img{
+    border-radius: 6rem;
+    width: 11%;
+    margin-top: -3%;
+    transform: rotate(29deg);
+}
+.contact-form form{
+    padding: 14%;
+}
+.contact-form form .row{
+    margin-bottom: -7%;
+}
+.contact-form h3{
+    margin-bottom: 8%;
+    margin-top: -10%;
+    text-align: center;
+    color: orange;
+}
+.contact-form .btnContact {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #dc3545;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.btnContactSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+}
+</style>
+
+
+<div class="container contact-form">
+            <div class="contact-image">
+                <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"  >
+            </div>
+
+            
+
+            <form action="/projectinfo" method="post"  role="form" enctype="multipart/form-data">
+                <%if(success!='') {%>
+
+                    <h3 style="color: red;"><%=success%></h3>
+                    <br>
+                    <%}%>
+                <h3>Project Information</h3>
+               <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label for="sel1" style="color: red;">Project Type:</label>
+                            <select class="form-control" id="sel1" name="projecttype">
+                              <option>Devlopment</option>
+                              <option>Business</option>
+                              <option>Art</option>
+                              <option>IT And Software</option>
+                              <option>Personal Devlopment</option>
+                              <option>Finance</option>
+                              <option>None</option>
+                              
+                            </select>
+                          </div>
+
+                          <div class="form-group" style="display:none;">
+                            <label for="length" style="color: red;"></label>
+                            <input type="text" name="length" class="form-control" placeholder=""  value=<%=records.length%>>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" style="color: red;">Title:</label>
+                            <input type="text" name="title" class="form-control" placeholder="title *" >
+                        </div>
+                        <div class="form-group">
+                            <label for="price" style="color: red;">Price:</label>
+                            <input type="text"  name="price" class="form-control" placeholder="price *" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shortd" style="color: red;">Tag or short description:</label>
+                            <input type="text" name="shortd" class="form-control" placeholder="Tag or short description: ">
+                        </div>
+                       
+
+                        <div class="form-group">
+                            <label for="image" style="color: red;">Project Display Image </label>
+                           
+                                <input id="image" type="file" class="form-control" name="file"  >
+                            
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="col-md-6" style="overflow: hidden;">
+                        <div class=" form-group">
+                            <label for="description" style="color: red;">Proper description</label>
+                            <textarea type="text" name="description" class="form-control" placeholder="description" style="width: 100%; height: 150px;"></textarea>
+                        </div>
+                    </div>
+
+                  <br><br>
+                      <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
+                 
+
+
+                </div>
+            </form>
+</div>
+
+<!<%- include('footer')%>

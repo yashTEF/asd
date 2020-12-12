@@ -16,17 +16,67 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/assets/OwlCarousel2-2.3.4/OwlCarousel2-2.3.4/src/scss/owl.carousel.scss">
+    
 
-    <!-- Default Theme -->
-    <link rel="stylesheet" href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.css">
-    <!-- Default Theme -->
-    <link rel="stylesheet" href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css">
   </head>
 <body>
 
+  <%if(loginuser==null){%>
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color bg-dark fix" style="color: black;position:sticky; z-index: 10;" >
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="/" style="color: black;"><span style="color: rgb(221, 203, 41);"> SSYH</span> <span style="color: white;">Class's</span></a>
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto " >
+          <li class="nav-item active " style="color: black;">
+            <a class="nav-link" href="/">Home
+            </a>
+          </li>
+  
+          <li class="nav-item active">
+              <a class="nav-link" href="/project_dashboard">All Course</a>
+            </li>
+  
+          <li class="nav-item active">
+            <a class="nav-link" href="/blogger">Article</a>
+          </li>
+            
+        </ul>
+  
+        
+        <!-- Links -->
+        <form class="form-inline">
+          <div class="md-form my-0">
+            
+                  <!-- Dropdown -->
+           <ul class="navbar-nav mr-auto " >
+          <li class="nav-item">
+              <a class="nav-link" href="/login">login</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/signup">Sing up</a>
+            </li>
+          </ul>
+          </div>
+     
+  
+          
+        </form>
+      </div>
+      <!-- Collapsible content -->
+    </nav>
+    <%}%>
   <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark primary-color bg-dark fix" style="color: black;position:sticky; z-index: 10;" >
+
+<% if(loginas=='Teacher'){%>
+
+  <nav class="navbar navbar-expand-lg navbar-dark primary-color bg-dark fix" style="color: black;position:sticky; z-index: 10;" >
     <!-- Navbar brand -->
     <a class="navbar-brand" href="/" style="color: black;"><span style="color: rgb(221, 203, 41);"> SSYH</span> <span style="color: white;">Class's</span></a>
     <!-- Collapse button -->
@@ -42,28 +92,31 @@
           <a class="nav-link" href="/">Home
           </a>
         </li>
+
         <li class="nav-item active">
-          <a class="nav-link" href="/blogger">Blogs</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/index">Enployee Record</a>
-        </li>
-        <!-- Dropdown -->
-        <li class="nav-item">
-            <a class="nav-link" href="/login">login</a>
+            <a class="nav-link" href="/project_dashboard">All Course</a>
           </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/signup">Sing up</a>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="/blogger">Artical</a>
           </li>
 
           <li class="nav-item">
-            <a href="/dasboard" class="nav-link"  style="text-decoration: none;">SSYH AS BUSSSINESS</a>
+            <a href="/dasboard" class="nav-link"  style="text-decoration: none;">write Artical</a>
           </li>
 
+          <li class="nav-item">
+            <a href="/mycourse" class="nav-link"  style="text-decoration: none;">my course</a>
+          </li>
 
-      
+          <li class="nav-item">
+            <a href="/projectinfo" class="nav-link"  style="text-decoration: none;">New Project</a>
+          </li>
+          <li class="nav-item">
+            <a href="/earning" class="nav-link"  style="text-decoration: none;">Earning</a>
+          </li>
+
         
-          
 
           
       </ul>
@@ -71,12 +124,78 @@
       <form class="form-inline">
         <div class="md-form my-0">
           
-            
+          <ul class="navbar-nav mr-auto " >
+            <li class="nav-item">
+          <a href="/cart" class="nav-link"  style="text-decoration: none;color: azure;"> My Cart</a>
+        </li>
+        <li class="nav-item">
           <a href="/logout" class="nav-link"  style="text-decoration: none;color: azure;"> logout</a>
+        </li>
+      
+      </ul>
         </div>
         
       </form>
     </div>
     <!-- Collapsible content -->
   </nav>
+  <%}%>
+
+
+
+  <%if(loginas=='Student'){%>
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color bg-dark fix" style="color: black;position:sticky; z-index: 10;" >
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="/" style="color: black;"><span style="color: rgb(221, 203, 41);"> SSYH</span> <span style="color: white;">Class's</span></a>
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="basicExampleNav">
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto " >
+          <li class="nav-item active " style="color: black;">
+            <a class="nav-link" href="/">Home
+            </a>
+          </li>
+  
+          <li class="nav-item active">
+              <a class="nav-link" href="/project_dashboard">All Course</a>
+            </li>
+  
+          <li class="nav-item active">
+              <a class="nav-link" href="/blogger">Artical</a>
+            </li>
+  
+            <li class="nav-item">
+              <a href="/dasboard" class="nav-link"  style="text-decoration: none;">write Artical</a>
+            </li>
+  
+            <li class="nav-item">
+              <a href="/mycourse" class="nav-link"  style="text-decoration: none;">my course</a>
+            </li>
+  
+           
+  
+          
+  
+            
+        </ul>
+        <!-- Links -->
+        <form class="form-inline">
+          <div class="md-form my-0">
+            
+              
+            <a href="/cart" class="nav-link"  style="text-decoration: none;color: azure;"> my Cart</a>
+            <a href="/logout" class="nav-link"  style="text-decoration: none;color: azure;"> logout</a>
+          </div>
+          
+        </form>
+      </div>
+      <!-- Collapsible content -->
+    </nav>
+    <%}%>
+
   <!--/.Navbar-->  

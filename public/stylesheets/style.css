@@ -222,3 +222,18 @@ margin: 3%;
 .gll{
   text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4f00b6, 0 0 40px #17057c, 0 0 50px #29c2ff, 0 0 60px #96fbff, 0 0 70px #1f0352;
 }
+
+.pak{
+
+  
+  background-image:url(../assets/images/project.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  text-align: center;
+  display: inline-flexbox;
+  color: bisque;
+  overflow: visible ;
+
+
+}

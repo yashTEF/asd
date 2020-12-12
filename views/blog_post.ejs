@@ -5,8 +5,9 @@
 
     <div style="text-align: center;">
         <% if(records.image){ %>
-            <img  src="/uploads/<%= records.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;">
-          <% } %>
+            <video src="/uploads/<%= records.image %>" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;"></video>
+           <!-- <img  src="/uploads/<%= records.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;">
+        -->  <% } %>
       <h1 class="b" style="color: orange;"><%=records.title%></h1>
     <br>
     <div class="container">

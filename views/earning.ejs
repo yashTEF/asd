@@ -1,0 +1,38 @@
+<%- include('header')%>
+
+    
+   <div class="container">
+    <h1>Your Earning Status is</h1>
+    
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          
+          <th scope="col">username</th>
+          <th scope="col">Project Name</th>
+          <th scope="col">Earning of this project</th>
+         
+        </tr>
+      </thead>
+      
+     <% records.forEach(function(row){%>
+      
+      <tr>
+        <td><%= row.username%></td>
+        <td><%= row.title%></td>
+        <td><%= row.total%></td>
+    
+        
+      </tr>
+      
+     <%})%>
+      
+    </table>
+
+    
+   </div>
+
+
+
+  
+   <%- include('footer')%>

@@ -8,7 +8,8 @@ var asdSchema=new mongoose.Schema({
     username:String,
     password:String,
     email:String,
-    use:String
+    use:String,
+    
 });
 
 var asdModel=mongoose.model('asd',asdSchema);

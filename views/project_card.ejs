@@ -1,0 +1,109 @@
+<!<%- include('header')%> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("")
+      $("#shashank").click(function(){
+        $("p").hide();
+        $("#s1").toggle();
+      });
+    });
+    $(document).ready(function(){
+      $("#pakhare").click(function(){
+          $("p").hide();
+        $("#s2").toggle();
+      });
+    });
+    $(document).ready(function(){
+      $("#ss3").click(function(){
+          $("p").hide();
+        $("#s3").toggle();
+      });
+    });
+    </script>
+
+
+<div class="container center upper_part "   style="text-align:center;" >
+    <h1><%=records.title%></h1>
+    <br>
+    <img src="/uploads/<%=records.image%>" alt="" style="width: 18rem; height:15rem;">
+    <br>
+    <p ><%=records.shortd%></p>
+    
+<%if(msg=='not'){%>
+    <div class=" text-center" >
+      <form action="/project_card/<%=records.index%>" method="post">
+        <input type="text" name="image" value="<%=records.image%>" style="display: none;">
+        <input type="text" name="title" value="<%=records.title%>" style="display: none;">
+        <input type="text" name="username" value="<%=records.username%>" style="display: none;">
+        <input type="text" name="projectid" value="<%=records.index%>" style="display: none;">
+        <input type="number" class="" name="price" value="<%=records.price%>" style="display: none;">
+          <input type="submit" class="btn btn-warning" name="buy" value="Buy" style="width: 5rem;">
+          
+      </form>
+      <%if(cart=='not'){%>
+      <form action="/project_card/<%=records.index%>" method="post" >
+
+          <input type="text" name="title" value="<%=records.title%>" style="display: none;">
+          <input type="text" name="image" value="<%=records.image%>" style="display: none;">
+          <input type="text" name="username" value="<%=records.username%>" style="display: none;">
+          <input type="text" name="projectid" value="<%=records.index%>" style="display: none;">
+          <input type="number" class="" name="price" value="<%=records.price%>" style="display: none;">
+          <input type="submit" class="btn btn-dark" name="buy" value="Add To Cart" >
+          
+      </form>
+      <%}%>
+    </div>
+<%}%>
+
+<%if(msg=='yes'){%>
+    <br>
+       <a href="/video"><div class="btn btn-danger">Play Video</div></a> 
+  <%}%>
+
+</div>  
+
+<div class="container" >
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color bg-dark fix" style="color: black;position:sticky; z-index: 10;" >
+        
+        
+           
+             <div class="btn" id="shashank" style="color: aliceblue;">About Course</div> 
+             <div class="btn" id="pakhare" style="color: aliceblue;">Reviews</div> 
+             
+             <div class="btn" id="ss3" style="color: aliceblue;">What You Get</div> 
+             
+          
+        
+        
+        <!-- Collapsible content -->
+      </nav>
+    
+    
+    <p id="s1">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur id dolorem quisquam repellendus et dolores minima, sapiente aspernatur libero obcaecati soluta odit dicta eaque tenetur quo beatae ea tempora nulla dolore illo nostrum porro ex! Distinctio velit vero molestiae modi reiciendis, ratione earum neque ea, aliquam, facere deserunt pariatur labore!
+    </p>
+    <p id="s2" style="display: none;">
+        shashank ipsum, dolor sit amet consectetur adipisicing elit. Consequatur id dolorem quisquam repellendus et dolores minima, sapiente aspernatur libero obcaecati soluta odit dicta eaque tenetur quo beatae ea tempora nulla dolore illo nostrum porro ex! Distinctio velit vero molestiae modi reiciendis, ratione earum neque ea, aliquam, facere deserunt pariatur labore!
+    </p>
+    <p id="s3" style="display: none;">
+        What You’ll Learn
+        <br>
+        Setting up the environment
+        <br>
+        Advanced HTML Practices
+        <br>
+        Build a portfolio website
+        <br>
+        Responsive Designs    
+    </p>
+    
+</div>
+
+
+
+
+    <!<%- include('footer')%> 
+    
+    
+  
