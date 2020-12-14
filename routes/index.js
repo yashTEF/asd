@@ -8,11 +8,12 @@ var projectMode= require('../modules/project');
 var sellerMode= require('../modules/seller');
 var buyerMode= require('../modules/buyer');
 var cartMode= require('../modules/cart');
-
-
+const session = require('express-session')
+const fs = require('fs');
 var jwt = require('jsonwebtoken');
 var path = require('path');
 const { websecurityscanner } = require('googleapis/build/src/apis/websecurityscanner');
+const { ESTALE } = require('constants');
 
 var employee=empMode.find({});
 var project=projectMode.find({});
@@ -25,6 +26,23 @@ var cart=cartMode.find({});
 var asd=asdMode.find({});
 
 var r=1;
+
+//#########################3
+if (router.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
+router.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge:24*60*60 }
+})
+)
+
+//########################
+
 
 //###########3IMAGE
 router.use(express.static(__dirname+"./public/"));
@@ -103,10 +121,13 @@ return res.render('signup', { title: 'Password Management System', msg:'Email Al
   });
 }
 
+
+
+
 router.get('/',function(req,res,next){
   
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
   if(r==2)
   res.render('home',{loginuser:a,msg:'',loginas:b,loginuser:a});
@@ -120,8 +141,8 @@ router.get('/',function(req,res,next){
 
 
 router.get('/index' ,checkLoginUser,function(req, res, next) {
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
 
   employee.exec(function(err,data){
@@ -131,8 +152,8 @@ router.get('/index' ,checkLoginUser,function(req, res, next) {
 });
 
 router.post('/index',checkLoginUser,function(req, res, next) {
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
   var empdetails=new empMode({
     name:req.body.name,
@@ -162,8 +183,8 @@ router.post('/index',checkLoginUser,function(req, res, next) {
 
 router.post('/signup',checkempty,checkEmail, checkUsername ,function(req, res, next) {
   
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
 
   var empdetails=new asdMode({
@@ -201,19 +222,39 @@ res.render('signup',{msg:'password not matched',loginas:b,loginuser:a});
 });
 
 
-router.get('/signup',function(err,res,next){
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+router.get('/signup',function(req,res,next){
+
+  if(req,session.username){
+    var a=req.session.username;
+    var b=req.session.char;
 
   res.render('signup',{msg:'',loginuser:a,loginas:b});
+  }
+
+  else{
+    res.redirect('/');
+  }
+
 })
 
-router.get('/login',function(err,res,next){
+router.get('/login',function(req,res,next){
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  if(req.session.username){
+    
+    var a=req.session.username;
+    var b=req.session.char;
+  
+    res.render('home',{msg:'please log in first',loginuser:a,loginas:b});
+  }
 
-  res.render('login',{msg:'please log in first',loginuser:a,loginas:b});
+
+  else{
+    var a=req.session.username;
+    var b=req.session.char;
+  
+    res.render('login',{msg:'please log in first',loginuser:a,loginas:b});
+  }
+
 })
 
 router.post('/login',function(req,res,next){
@@ -223,8 +264,8 @@ router.post('/login',function(req,res,next){
   var loginas=req.body.loginas;
 
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
   var checkUser=asdMode.findOne({username:username});
   checkUser.exec((err, data)=>{
@@ -241,10 +282,12 @@ var getPassword=data.password;
 
 if(getPassword==password){
   r=2;
-  var token = jwt.sign({ userID: getUserID }, 'loginToken');
+  var token = jwt.sign({ userID: getUserID }, 'loginToken',);
   localStorage.setItem('userToken', token);
   localStorage.setItem('loginUser', username);
   localStorage.setItem('loginas',loginas);
+  req.session.username=username;
+  req.session.char=loginas;
 
   res.redirect('/');
 }
@@ -261,21 +304,29 @@ else{
 
 router.get('/dasboard',checkLoginUser,function(req, res, next) {
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  if(req.session.username){
+
+    var a=req.session.username;
+  var b=req.session.char;
 
   blogger.exec(function(err,data){
 if(err) throw err;
 res.render('dasboard', { title: 'Employee Records', records:data, success:'',loginas:b,loginuser:a });
   });
+
+  }
+  else{
+    res.redirect('/login');
+  }
+  
   
 });
 
 
 router.post('/dasboard', upload, function(req, res, next) {
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
   var bloggerDetails = new bloggerMode({
     title:req.body.title,
@@ -298,19 +349,26 @@ router.post('/dasboard', upload, function(req, res, next) {
 });
 
 
-router.get('/logout',function(err,res,next){
-  localStorage.removeItem('userToken');
+router.get('/logout',function(req,res,next){
+  req.session.destroy(function(err){
+
+    if(err) throw err;
+
+    localStorage.removeItem('userToken');
   localStorage.removeItem('loginUser');
   localStorage.removeItem('loginas');
 
-  res.redirect('/');
+
+    res.redirect('/');
+  })
+
 })
 
 
-router.get('/blogger',function(err,res){
+router.get('/blogger',function(req,res){
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
   blogger.exec(function(err,data){
     if(err) throw err;
@@ -321,8 +379,8 @@ router.get('/blogger',function(err,res){
 
 router.get('/blog_post/:id', function(req, res, next) {
   var username=req.params.id;
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
 var edit= bloggerMode.findOne({username:username});
 edit.exec(function(err,data){
@@ -334,22 +392,27 @@ res.render('blog_post', { title: 'Edit Employee Record', records:data,loginuser:
 
 
 
-router.get('/projectinfo',checkLoginUser,function(err,res,next){
-  
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+router.get('/projectinfo',checkLoginUser,function(req,res,next){
 
-  project.exec(function(err,data){
-    if(err) throw err;
-    res.render('projectinfo',{success:'',records:data,loginas:b,loginuser:a});
-  })
+  if(req.session.username){
+    var a=req.session.username;
+    var b=req.session.char;
+  
+    project.exec(function(err,data){
+      if(err) throw err;
+      res.render('projectinfo',{success:'',records:data,loginas:b,loginuser:a});
+    })
+  }
+  else{
+    res.redirect('/login');
+  }
 
 })
 
 router.post('/projectinfo',checkLoginUser, upload, function(req, res, next) {
   
-   var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
   var x=req.body.length;
   x=x+1;
   var s=x.toString();
@@ -390,8 +453,8 @@ router.post('/projectinfo',checkLoginUser, upload, function(req, res, next) {
 
 router.get('/project_dashboard',function(req,res,next){
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+  var a=req.session.username;
+  var b=req.session.char;
 
   project.exec(function(err,data){
     if(err) throw err;
@@ -402,8 +465,10 @@ router.get('/project_dashboard',function(req,res,next){
 router.get('/project_card/:id',checkLoginUser,function(req,res,next){
 
 
-  var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+ if(req.session.username)
+ {
+  var a=req.session.username;
+  var b=req.session.char;
 
   var index=req.params.id;
   var buyerDetails=buyerMode.findOne({username:a,projectid:index});
@@ -449,8 +514,10 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
 
   })
 
- 
-  
+ }
+  else{
+    res.redirect('/login');
+  }
   
   })
   
@@ -458,8 +525,8 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
 
 
   router.post('/project_card/:id',checkLoginUser,function(req,res,next){
-    var a=localStorage.getItem('loginUser');
-    var b=localStorage.getItem('loginas');
+    var a=req.session.username;
+    var b=req.session.char;
 
 
     var projectid=req.body.projectid;
@@ -478,7 +545,7 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
         if(err) throw err;
   
         var buyerDetails=buyerMode({
-          username:username,
+          username:a,
           projectid:projectid,
           title:title,
           price:price,
@@ -511,7 +578,7 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
               })
             
               sellerDetails.save();
-              res.send("your course is purchsed have fun ji");
+              res.redirect("/video");
             })
            
           }
@@ -539,17 +606,25 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
 
 
   router.get('/video',checkLoginUser,function(req,res,next){
-    var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+   if(req.session.username){
+    var a=req.session.username;
+    var b=req.session.char;
+  
+      res.render('video',{loginas:b,loginuser:a,loginas:b});
+   }
 
-    res.render('video',{loginas:b,loginuser:a,loginas:b});
+   else{
+     res.redirect('/login');
+   }
+
   })
 
 
   router.get('/cart',checkLoginUser,function(req,res,next){
 
-      var a=localStorage.getItem('loginUser');
-  var b=localStorage.getItem('loginas');
+    if(req.session.username){
+      var a=req.session.username;
+    var b=req.session.char;
 
     var cartDetails=cartMode.find({username:a});
     cartDetails.exec(function(err,data){
@@ -557,14 +632,19 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
 
       res.render('cart',{records:data,loginas:b,loginuser:a});
     })
+    }
+    else{
+      res.redirect('/login');
+    }
 
   })
 
 
   router.get('/mycourse',function(req,res,next){
 
-    var a=localStorage.getItem('loginUser');
-    var b=localStorage.getItem('loginas');
+if(req.session.username){
+  var a=req.session.username;
+  var b=req.session.char;
 
     var buyerDetails=buyerMode.find({username:a});
 
@@ -573,14 +653,21 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
       
       res.render('mycourse',{records:data,loginas:b,loginuser:a});
     })
-  
+}
+
+else{
+  res.redirect('/login');
+}
    
   })
 
   router.get('/earning',function(req,res,next){
 
-    var a=localStorage.getItem('loginUser');
-    var b=localStorage.getItem('loginas');
+
+    if(req.session.username){
+
+      var a=req.session.username;
+  var b=req.session.char;
 
     var sellerDetails=sellerMode.find({username:a});
 
@@ -588,7 +675,16 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
       if(err) throw err;
       
       res.render('earning',{records:data,loginas:b,loginuser:a});
+
     });
+
+    }
+
+    else{
+
+        res.redirect('/login');
+    }
+    
 
   })
 //client id
