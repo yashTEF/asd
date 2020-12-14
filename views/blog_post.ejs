@@ -5,7 +5,7 @@
 
     <div style="text-align: center;">
         <% if(records.image){ %>
-            <video src="/uploads/<%= records.image %>" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;"></video>
+            <img  src="/uploads/<%= records.image %>" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;">
            <!-- <img  src="/uploads/<%= records.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; border-radius: 100%;">
         -->  <% } %>
       <h1 class="b" style="color: orange;"><%=records.title%></h1>
@@ -20,7 +20,7 @@
 
 </div>
 
-
+<hr>
 <div class="row">
     <div class="col-lg-2 col-md-0 col-sm-0"></div>
     <div class="col-lg-7 col-md-8 col-sm-12">

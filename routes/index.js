@@ -41,6 +41,8 @@ router.use(session({
 })
 )
 
+
+
 //########################
 
 
@@ -225,14 +227,15 @@ res.render('signup',{msg:'password not matched',loginas:b,loginuser:a});
 router.get('/signup',function(req,res,next){
 
   if(req,session.username){
+    res.redirect('/');
+  }
+
+  else{
+    
     var a=req.session.username;
     var b=req.session.char;
 
   res.render('signup',{msg:'',loginuser:a,loginas:b});
-  }
-
-  else{
-    res.redirect('/');
   }
 
 })
@@ -327,10 +330,10 @@ router.post('/dasboard', upload, function(req, res, next) {
 
   var a=req.session.username;
   var b=req.session.char;
-
+  var x=new Date();
   var bloggerDetails = new bloggerMode({
     title:req.body.title,
-    username:req.body.username,
+    username:x,
     description:req.body.description,
     artical:req.body.artical,
     image:req.file.filename,
@@ -350,6 +353,7 @@ router.post('/dasboard', upload, function(req, res, next) {
 
 
 router.get('/logout',function(req,res,next){
+ /*
   req.session.destroy(function(err){
 
     if(err) throw err;
@@ -361,6 +365,11 @@ router.get('/logout',function(req,res,next){
 
     res.redirect('/');
   })
+ */
+
+ req.session.char=null;
+ req.session.username=null;
+ res.redirect('/');
 
 })
 
@@ -413,21 +422,19 @@ router.post('/projectinfo',checkLoginUser, upload, function(req, res, next) {
   
   var a=req.session.username;
   var b=req.session.char;
-  var x=req.body.length;
-  x=x+1;
-  var s=x.toString();
+  var x=new Date();
   var w=0;
   var sellerDetails=new sellerMode({
     username:a,
     title:req.body.title,
-    projectid:s,
+    projectid:x,
     total:w,
   })
 
   sellerDetails.save();
 
   var projectDetails = new projectMode({
-    index:s,
+    index:x,
     title:req.body.title,
     username:a,
     description:req.body.description,
