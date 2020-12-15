@@ -37,7 +37,7 @@ router.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge:24*60*60*1000 }
+  cookie: { maxAge:24*60*60*1000*1000}
 })
 )
 
@@ -142,7 +142,7 @@ router.get('/',function(req,res,next){
 
 
 
-router.get('/index' ,checkLoginUser,function(req, res, next) {
+router.get('/index',function(req, res, next) {
   var a=req.session.username;
   var b=req.session.char;
 
@@ -153,7 +153,7 @@ router.get('/index' ,checkLoginUser,function(req, res, next) {
   });
 });
 
-router.post('/index',checkLoginUser,function(req, res, next) {
+router.post('/index',function(req, res, next) {
   var a=req.session.username;
   var b=req.session.char;
 
@@ -305,7 +305,7 @@ else{
 
 });
 
-router.get('/dasboard',checkLoginUser,function(req, res, next) {
+router.get('/dasboard',function(req, res, next) {
 
   if(req.session.username){
 
@@ -353,7 +353,7 @@ router.post('/dasboard', upload, function(req, res, next) {
 
 
 router.get('/logout',function(req,res,next){
- /*
+ 
   req.session.destroy(function(err){
 
     if(err) throw err;
@@ -365,11 +365,9 @@ router.get('/logout',function(req,res,next){
 
     res.redirect('/');
   })
- */
+ 
 
- req.session.char=null;
- req.session.username=null;
- res.redirect('/');
+
 
 })
 
@@ -401,9 +399,10 @@ res.render('blog_post', { title: 'Edit Employee Record', records:data,loginuser:
 
 
 
-router.get('/projectinfo',checkLoginUser,function(req,res,next){
+router.get('/projectinfo',function(req,res,next){
 
   if(req.session.username){
+  if(req.session.char=='Teacher'){
     var a=req.session.username;
     var b=req.session.char;
   
@@ -412,13 +411,18 @@ router.get('/projectinfo',checkLoginUser,function(req,res,next){
       res.render('projectinfo',{success:'',records:data,loginas:b,loginuser:a});
     })
   }
+
+  else{
+    res.redirect('/');
+  }
+  }
   else{
     res.redirect('/login');
   }
 
 })
 
-router.post('/projectinfo',checkLoginUser, upload, function(req, res, next) {
+router.post('/projectinfo', upload, function(req, res, next) {
   
   var a=req.session.username;
   var b=req.session.char;
@@ -469,7 +473,7 @@ router.get('/project_dashboard',function(req,res,next){
   })
 })
 
-router.get('/project_card/:id',checkLoginUser,function(req,res,next){
+router.get('/project_card/:id',function(req,res,next){
 
 
  if(req.session.username)
@@ -531,7 +535,7 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
 
 
 
-  router.post('/project_card/:id',checkLoginUser,function(req,res,next){
+  router.post('/project_card/:id',function(req,res,next){
     var a=req.session.username;
     var b=req.session.char;
 
@@ -612,12 +616,24 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
   })
 
 
-  router.get('/video',checkLoginUser,function(req,res,next){
+  router.get('/video',function(req,res,next){
    if(req.session.username){
-    var a=req.session.username;
-    var b=req.session.char;
-  
-      res.render('video',{loginas:b,loginuser:a,loginas:b});
+
+    var buyerDetails=buyerMode.findOne({usernme:req.session.username},function(err,data){
+      if(data==null){
+        res.redirect('/project_dashboard');
+      }
+      else{
+        if(err) throw err;
+        
+        var a=req.session.username;
+        var b=req.session.char;
+      
+          res.render('video',{loginas:b,loginuser:a,loginas:b});
+      }
+
+    })
+   
    }
 
    else{
@@ -627,7 +643,7 @@ router.get('/project_card/:id',checkLoginUser,function(req,res,next){
   })
 
 
-  router.get('/cart',checkLoginUser,function(req,res,next){
+  router.get('/cart',function(req,res,next){
 
     if(req.session.username){
       var a=req.session.username;

@@ -11,64 +11,35 @@
 <div style="margin-top:4%;margin-bottom:3%;color: orange; ">
     <h1 class="text-center" style="font-size:40px; font-weight: bolder; ">New Article</h1>
 </div>
-<%var i=0 ;%>
 
-   <div class="" >
+   <div class=" container" >
     <% records.forEach(function(row) {%>
 
-        <%if(i%2==0) {%>
-            <a href=" /blog_post/<%=row.username%>" style="text-decoration: none; color: black;">
-    <div class="container " style="margin-top: 5%;">
-        <div class=" row" style="display: flex;   margin-top: 5%;">
-            <div class="col-sm-12 col-md-12 col-lg-6" style=" height: 40vh;overflow: hidden; border-radius: 10%;text-align: center;">
-                <% if(row.image){ %>
-                    <img src="./uploads/<%= row.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; ">
-                  <% } %>
-               </div>
-               <div class="col-sm-12 col-md-12 col-lg-6 " style="padding: 10px;">
-                <h1 style="color: orange;">
-                    <%= row.title %>
-                </h1>
-        
-                <h4>
-                    <%= row.description %>
-                </h4>
-        
-           </div>
-           </div>
-    </div> 
-    </a> 
-    <%} %>
-    
-    <% if(i%2!=0) { %>
-        
-        <a href="/blog_post/<%=row.username%>" style="text-decoration: none; color: black;">
-        <div class="container " style="margin-top: 5%;">
-            <div class=" row" style="display: flex;   margin-top: 5%;">
-                
-                   <div class="col-sm-12 col-md-12 col-lg-6 " style="padding: 10px; text-align: right;">
-                    <h1 style="color: orange;">
-                        <%= row.title %>
-                    </h1>
-            
-                    <h4>
-                        <%= row.description %>
-                    </h4>
-            
-               </div>
-    
-               <div class="col-sm-12 col-md-12 col-lg-6" style=" height: 40vh;overflow: hidden; border-radius: 10%;text-align: center;">
-                <% if(row.image){ %>
-                    <img src="./uploads/<%= row.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; ">
-                  <% } %>
-               </div>
-               </div>
-        </div> 
-    </a>
-        <%} %>
-    
-    
-            <%i=i+1 ;%>
+      
+            <div class="sh">
+                <a href=" /blog_post/<%=row.username%>" class="" style="text-decoration: none; color: black;">
+                    <div class="container " style="margin-top: 5%;">
+                        <div class=" row" style="display: flex;   margin-top: 5%;">
+                            <div class="col-sm-12 col-md-12 col-lg-6" style=" height: 40vh;overflow: hidden; border-radius: 10%;text-align: center;">
+                                <% if(row.image){ %>
+                                    <img src="./uploads/<%= row.image %>" alt="profile image" class="blog_img" style="height: 300px; width: 300px; ">
+                                  <% } %>
+                               </div>
+                               <div class="col-sm-12 col-md-12 col-lg-6 " style="padding: 10px;">
+                                <h1 style="color: orange;">
+                                    <%= row.title %>
+                                </h1>
+                        
+                                <h4>
+                                    <%= row.description %>
+                                </h4>
+                        
+                           </div>
+                           </div>
+                    </div> 
+                    </a> 
+            </div>
+ 
         
        <%})%>
     
