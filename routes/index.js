@@ -619,7 +619,8 @@ router.get('/project_card/:id',function(req,res,next){
   router.get('/video',function(req,res,next){
    if(req.session.username){
 
-    var buyerDetails=buyerMode.findOne({usernme:req.session.username},function(err,data){
+    var buyerDetails=buyerMode.findOne({username:req.session.username});
+    buyerDetails.exec(function(err,data){
       if(data==null){
         res.redirect('/project_dashboard');
       }
