@@ -35,9 +35,9 @@ if (router.get('env') === 'production') {
 
 router.use(session({
   secret: 'keyboard cat',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  cookie: { maxAge:24*60*60*1000*1000}
+  cookie: { }
 })
 )
 
